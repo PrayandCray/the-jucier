@@ -6,6 +6,8 @@ extends Sprite2D
 func _ready() -> void:
 	pass
 
-
-#func _process(delta: float) -> void:
-#	print(global_position)
+func _process(delta: float) -> void:
+	if Global.level == 1:
+		global_position = Vector2(960, 871)
+	if Global.level == 2:
+		global_position = Vector2(1872, 824)

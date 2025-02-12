@@ -53,7 +53,7 @@ func duplicate_fruit():
 	var instance  = load("res://fruits/fruits.tscn")
 	var new_fruit = instance.instantiate()
 	get_parent().add_child(new_fruit)
-	new_fruit.global_position = Vector2(randi_range(-200, 350), 40)
+	new_fruit.global_position = Vector2(randi_range(40, 1870), 40)
 	new_fruit.linear_velocity = Vector2(randi_range(-100, 100), randi_range(50, 0))
 	new_fruit.add_to_group("fruits")
 	print("fruit_spawned!")

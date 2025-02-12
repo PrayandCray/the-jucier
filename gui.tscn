@@ -38,3 +38,5 @@ text = "placeholder text"
 
 [node name="Time Limit Timer" type="Timer" parent="."]
 wait_time = 120.0
+
+[connection signal="timeout" from="Time Limit Timer" to="." method="_on_timer_timeout"]

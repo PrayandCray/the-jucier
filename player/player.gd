@@ -39,6 +39,9 @@ func jump(delta):
 func _physics_process(delta):
 	var direction := Input.get_axis("ui_left", "ui_right")
 
+	if Input.is_action_just_pressed("Escape"):
+		get_tree().quit()
+
 	jump(delta)
 
 	if direction:
@@ -46,7 +49,7 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
-	if global_position.y >= 800:
+	if global_position.y >= 1080:
 		global_position = Vector2(556, 184)
 		velocity.y = 0
 		if Global.player_fruits >= 1:
