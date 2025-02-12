@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk41qchik8f17"]
+
+[ext_resource type="Script" path="res://gui.gd" id="1_1823o"]
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_1823o")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -105.0
+offset_right = -12.0
+offset_bottom = 40.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="Time Limit" type="Label" parent="CanvasLayer/HBoxContainer2"]
+layout_mode = 2
+text = "placeholder"
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+offset_left = 13.0
+offset_right = 140.0
+offset_bottom = 40.0
+
+[node name="Score" type="Label" parent="CanvasLayer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "placeholder text"
+
+[node name="Time Limit Timer" type="Timer" parent="."]
+wait_time = 120.0

@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfq7wo7fpr8db"]
+
+[ext_resource type="Texture2D" uid="uid://b2bw5pnunoub" path="res://icon.svg" id="1_20xmp"]
+[ext_resource type="Script" path="res://fruits/fruits.gd" id="1_r60y2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ft3qg"]
+size = Vector2(126.145, 128)
+
+[node name="RigidBody2D" type="RigidBody2D"]
+position = Vector2(-362, 362)
+collision_layer = 0
+collision_mask = 3
+input_pickable = true
+continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 5
+script = ExtResource("1_r60y2")
+
+[node name="Fruit" type="Sprite2D" parent="."]
+process_mode = 2
+position = Vector2(439, 22)
+rotation = 2.06727
+scale = Vector2(0.539063, 0.484375)
+texture = ExtResource("1_20xmp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+process_mode = 2
+position = Vector2(439, 22)
+rotation = 2.06727
+scale = Vector2(0.539063, 0.484375)
+shape = SubResource("RectangleShape2D_ft3qg")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
