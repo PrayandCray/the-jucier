@@ -6,6 +6,7 @@ var basket_size = 4 #bcs python always starts from 0 remember that lil bro
 var fruits_emptied = 0
 var fruit_drop = 1
 var level = 1
+var gamestart = false
 
 func _ready() -> void:
 	pass

@@ -37,31 +37,33 @@ func jump(delta):
 		jump_stored = false
 
 func _physics_process(delta):
-	var direction := Input.get_axis("ui_left", "ui_right")
-
-	if Input.is_action_just_pressed("Escape"):
-		get_tree().quit()
-
-	jump(delta)
-
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-	if global_position.y >= 1080:
-		global_position = Vector2(556, 184)
-		velocity.y = 0
-		if Global.player_fruits >= 1:
-			Global.player_fruits -= Global.fruit_drop
-			print("You Fell and Dropped ", Global.fruit_drop, " Fruits!")
+	if Global.gamestart == true:
+		show()
+		var direction := Input.get_axis("ui_left", "ui_right")
+	
+		if Input.is_action_just_pressed("Escape"):
+			get_tree().quit()
+	
+		jump(delta)
+	
+		if direction:
+			velocity.x = direction * SPEED
 		else:
-			Global.player_fruits = 0
-			print("You Fell and Dropped your Ego :(")
-
-	move_and_slide()
-
-
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			
+		if global_position.y >= 1080:
+			global_position = Vector2(556, 184)
+			velocity.y = 0
+			if Global.player_fruits >= 1:
+				Global.player_fruits -= Global.fruit_drop
+				print("You Fell and Dropped ", Global.fruit_drop, " Fruits!")
+			else:
+				Global.player_fruits = 0
+				print("You Fell and Dropped your Ego :(")
+	
+		move_and_slide()
+	else:
+		hide()
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	print("Bag Emptied!")
 	Global.fruits_emptied += Global.player_fruits
