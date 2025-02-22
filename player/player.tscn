@@ -7,7 +7,7 @@
 size = Vector2(46, 56)
 
 [node name="player" type="CharacterBody2D"]
-visibility_layer = 2
+visibility_layer = 3
 scale = Vector2(10.8054, 10.4838)
 script = ExtResource("1_015cx")
 
@@ -20,3 +20,8 @@ texture = ExtResource("1_bhm20")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(32, 56)
 shape = SubResource("RectangleShape2D_48aou")
+
+[node name="Powerup Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="timeout" from="Powerup Timer" to="." method="_on_powerup_timer_timeout"]

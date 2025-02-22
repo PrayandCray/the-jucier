@@ -8,14 +8,14 @@ size = Vector2(46.7027, 44.973)
 
 [node name="Blender" type="Sprite2D"]
 texture_filter = 1
-position = Vector2(956, 861)
+position = Vector2(960, 871)
 scale = Vector2(1.73438, 1.73438)
 texture = ExtResource("1_omuue")
 script = ExtResource("2_tvh34")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="blender area 2d" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="blender collision" type="CollisionShape2D" parent="blender area 2d"]
 visibility_layer = 3
-position = Vector2(0, 10.0901)
+position = Vector2(0.576575, 10.9549)
 shape = SubResource("RectangleShape2D_hpaax")

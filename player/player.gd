@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 @onready var timer: Timer = $"../Fruits/Timer"
+@onready var powerup_timer: Timer = $"Powerup Timer"
+@onready var blender_area_2d: Area2D = $"blender area 2d"
+
 
 const SPEED = 275
 const JUMP_VELOCITY = -300
@@ -11,6 +14,9 @@ var is_jumping = false
 var jump_timer = 0.1
 var jump_stored = false
 
+func _ready() -> void:
+	pass
+	
 func jump(delta):
 	
 	if not is_on_floor():
@@ -19,7 +25,7 @@ func jump(delta):
 			jump_stored = true
 		
 	if Input.is_action_just_pressed("ui_up") and is_on_floor() or jump_stored == true and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = Global.JUMP_VELOCITY
 		is_jumping = true
 		jump_timer = JUMP_HOLD_TIME
 		
@@ -43,11 +49,16 @@ func _physics_process(delta):
 	
 		if Input.is_action_just_pressed("Escape"):
 			get_tree().quit()
-	
+		
+		if Global.speed_multiplier == 1.5 and Global.powerup_timer_started == false:
+			powerup_timer.stop()
+			powerup_timer.start()
+			Global.powerup_timer_started = true
+			
 		jump(delta)
 	
 		if direction:
-			velocity.x = direction * SPEED
+			velocity.x = direction * (SPEED * Global.speed_multiplier)
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			
@@ -64,9 +75,14 @@ func _physics_process(delta):
 		move_and_slide()
 	else:
 		hide()
-func _on_area_2d_body_entered(body: Node2D) -> void:
+
+func _on_powerup_timer_timeout() -> void:
+	Global.speed_multiplier = 1
+	Global.JUMP_VELOCITY = -300
+	Global.powerup_timer_started = false
+
+func on_area_2d_body_entered(body: Node2D) -> void:
 	print("Bag Emptied!")
 	Global.fruits_emptied += Global.player_fruits
 	Global.player_score += (Global.player_fruits * 10)
 	Global.player_fruits = 0
-	
