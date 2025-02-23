@@ -13,6 +13,8 @@ var level = 1
 var gamestart = false
 var speed_multiplier = 1
 var powerup_timer_started = false
+var fruit_x2_powerup_timer_started = false
+var powerup_fruit_delete = false
 
 func _ready() -> void:
 	pass

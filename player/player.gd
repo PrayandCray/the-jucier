@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var timer: Timer = $"../Fruits/Timer"
 @onready var powerup_timer: Timer = $"Powerup Timer"
+@onready var fruit_powerup_timer: Timer = $"Fruit Powerup Timer"
 @onready var blender_area_2d: Area2D = $"blender area 2d"
 
 
@@ -13,6 +14,7 @@ const JUMP_HOLD_TIME = 0.6
 var is_jumping = false
 var jump_timer = 0.1
 var jump_stored = false
+var fruit_timer_start = false
 
 func _ready() -> void:
 	pass
@@ -43,6 +45,7 @@ func jump(delta):
 		jump_stored = false
 
 func _physics_process(delta):
+	print(fruit_powerup_timer.time_left)
 	if Global.gamestart == true:
 		show()
 		var direction := Input.get_axis("ui_left", "ui_right")
@@ -54,6 +57,10 @@ func _physics_process(delta):
 			powerup_timer.stop()
 			powerup_timer.start()
 			Global.powerup_timer_started = true
+			
+		if Global.fruit_x2_powerup_timer_started == true and fruit_timer_start == false:
+			fruit_powerup_timer.start()
+			fruit_timer_start = true
 			
 		jump(delta)
 	
@@ -86,3 +93,9 @@ func on_area_2d_body_entered(body: Node2D) -> void:
 	Global.fruits_emptied += Global.player_fruits
 	Global.player_score += (Global.player_fruits * 10)
 	Global.player_fruits = 0
+
+
+func _on_fruit_powerup_timer_timeout() -> void:
+	Global.fruit_x2_powerup_timer_started = false
+	Global.powerup_fruit_delete = true
+	fruit_timer_start = false

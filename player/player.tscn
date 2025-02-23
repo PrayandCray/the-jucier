@@ -24,4 +24,8 @@ shape = SubResource("RectangleShape2D_48aou")
 [node name="Powerup Timer" type="Timer" parent="."]
 wait_time = 10.0
 
+[node name="Fruit Powerup Timer" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="timeout" from="Powerup Timer" to="." method="_on_powerup_timer_timeout"]
+[connection signal="timeout" from="Fruit Powerup Timer" to="." method="_on_fruit_powerup_timer_timeout"]
