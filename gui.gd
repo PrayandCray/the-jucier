@@ -6,12 +6,14 @@ extends Control
 @onready var game_name: Label = $"CanvasLayer/VBoxContainer/Game Name"
 @onready var start_button: Button = $CanvasLayer/VBoxContainer/Start_Button
 @onready var endless: Button = $CanvasLayer/VBoxContainer/endless
+@onready var combos: Label = $CanvasLayer/Combos
 
 var level = Global.level
-
+var text = 0
 var countdown_time = 0
 
 func _ready() -> void:
+	combos.hide()
 	time_limit.hide()
 	score.hide()
 	pass
@@ -31,6 +33,20 @@ func _process(delta: float) -> void:
 		elif Global.endless == true:
 			countdown_time = "endless"
 			score.text = "Score: " + str(Global.player_score)
+		
+		if Global.comboed == true:
+			combos.show()
+			text = str(int(combos.text) + 1)
+			print("combos text, ", text)
+			combos.text = text
+			Global.comboed = false
+		combos.set_position(Vector2((Global.player_x + 25 - randi_range(-5, 5)), Global.player_y - 3 + (randi_range(1, 4)))) #jitter text for combo text
+		
+		if Global.comboed_timeout == true:
+			combos.hide()
+			Global.player_score += (int(combos.text) * 5)
+			combos.text = "0"
+			Global.comboed_timeout = false
 
 func _on_timer_timeout() -> void:
 	get_tree().quit()

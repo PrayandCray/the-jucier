@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var powerup_timer: Timer = $"Powerup Timer"
 @onready var fruit_powerup_timer: Timer = $"Fruit Powerup Timer"
 @onready var blender_area_2d: Area2D = $"blender area 2d"
+@onready var combo_timer: Timer = $"Combo Timer"
 
 
 const SPEED = 275
@@ -45,7 +46,7 @@ func jump(delta):
 		jump_stored = false
 
 func _physics_process(delta):
-	print(fruit_powerup_timer.time_left)
+
 	if Global.gamestart == true:
 		show()
 		var direction := Input.get_axis("ui_left", "ui_right")
@@ -61,7 +62,14 @@ func _physics_process(delta):
 		if Global.fruit_x2_powerup_timer_started == true and fruit_timer_start == false:
 			fruit_powerup_timer.start()
 			fruit_timer_start = true
-			
+		
+		if combo_timer.time_left == 0:
+			combo_timer.start(5)
+		
+		if Global.comboed == true:
+			combo_timer.start(5)
+		print(combo_timer.time_left)
+		
 		jump(delta)
 	
 		if direction:
@@ -80,6 +88,9 @@ func _physics_process(delta):
 				print("You Fell and Dropped your Ego :(")
 	
 		move_and_slide()
+		Global.player_y = global_position.y
+		Global.player_x = global_position.x
+		
 	else:
 		hide()
 
@@ -99,3 +110,7 @@ func _on_fruit_powerup_timer_timeout() -> void:
 	Global.fruit_x2_powerup_timer_started = false
 	Global.powerup_fruit_delete = true
 	fruit_timer_start = false
+
+
+func _on_combo_timer_timeout() -> void:
+	Global.comboed_timeout = true

@@ -5,6 +5,8 @@ extends Node
 var JUMP_VELOCITY = -300
 var endless = false
 var player_fruits = 0
+var player_y = 0
+var player_x
 var player_score = 0
 var basket_size = 4 #bcs python always starts from 0 remember that lil bro
 var fruits_emptied = 0
@@ -15,6 +17,8 @@ var speed_multiplier = 1
 var powerup_timer_started = false
 var fruit_x2_powerup_timer_started = false
 var powerup_fruit_delete = false
+var comboed = false
+var comboed_timeout = false
 
 func _ready() -> void:
 	pass

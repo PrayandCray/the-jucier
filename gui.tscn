@@ -79,6 +79,11 @@ modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 text = "placeholder text"
 
+[node name="Combos" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "0"
+
 [node name="Time Limit Timer" type="Timer" parent="."]
 wait_time = 120.0
 

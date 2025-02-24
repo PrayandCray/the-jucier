@@ -37,8 +37,8 @@ func _ready():
 		spawn_timer.start(4)
 		start_timer(5)
 	else:
-		spawn_timer.start(2)
-		start_timer(4)
+		spawn_timer.start(4)
+		start_timer(5)
 	rarity = randi_range(1, 100)
 	if rarity <= 50:
 		fruit.texture = common_fruit_sprites.pick_random()
@@ -67,6 +67,7 @@ func _on_area_2d_body_entered(body: Node) -> void:
 				Global.fruit_x2_powerup_timer_started = true
 				fruit_x2 = false
 			emit_signal("fruit_collide")
+			Global.comboed = true
 			print("player collided w fruit")
 			spawn_timer.start()
 			duplicate_fruit()
@@ -84,7 +85,7 @@ func duplicate_fruit():
 		new_fruit.linear_velocity = Vector2(randi_range(-100, 100), randi_range(50, 0))
 		new_fruit.add_to_group("fruits")
 		print("fruit_spawned!")
-		if get_tree().get_nodes_in_group("fruits").size() > 3: #check for how many fruits are on screen
+		if get_tree().get_nodes_in_group("fruits").size() > 2: #check for how many fruits are on screen
 			queue_free()
 
 func _process(delta: float) -> void:

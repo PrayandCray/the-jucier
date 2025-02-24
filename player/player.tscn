@@ -27,5 +27,9 @@ wait_time = 10.0
 [node name="Fruit Powerup Timer" type="Timer" parent="."]
 wait_time = 10.0
 
+[node name="Combo Timer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="timeout" from="Powerup Timer" to="." method="_on_powerup_timer_timeout"]
 [connection signal="timeout" from="Fruit Powerup Timer" to="." method="_on_fruit_powerup_timer_timeout"]
+[connection signal="timeout" from="Combo Timer" to="." method="_on_combo_timer_timeout"]
