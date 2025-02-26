@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var fruit_powerup_timer: Timer = $"Fruit Powerup Timer"
 @onready var blender_area_2d: Area2D = $"blender area 2d"
 @onready var combo_timer: Timer = $"Combo Timer"
+@onready var main_menu_theme: AudioStreamPlayer = $"Main Menu Theme"
 
 
 const SPEED = 275
@@ -15,7 +16,8 @@ const JUMP_HOLD_TIME = 0.6
 var is_jumping = false
 var jump_timer = 0.1
 var jump_stored = false
-var fruit_timer_start = false
+var menu_theme_play = false
+
 
 func _ready() -> void:
 	pass
@@ -24,15 +26,15 @@ func jump(delta):
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		if Input.is_action_just_pressed("ui_up"):
+		if Input.is_action_just_pressed("Jump"):
 			jump_stored = true
 		
-	if Input.is_action_just_pressed("ui_up") and is_on_floor() or jump_stored == true and is_on_floor():
+	if Input.is_action_just_pressed("Jump") and is_on_floor() or jump_stored == true and is_on_floor():
 		velocity.y = Global.JUMP_VELOCITY
 		is_jumping = true
 		jump_timer = JUMP_HOLD_TIME
 		
-	if Input.is_action_pressed("ui_up") and is_jumping == true:
+	if Input.is_action_pressed("Jump") and is_jumping == true:
 		jump_stored = true
 		if jump_timer > 0:
 			velocity.y += JUMP_HOLD_FORCE
@@ -41,15 +43,16 @@ func jump(delta):
 			is_jumping = false
 			velocity = Vector2(0,-50)
 			
-	if Input.is_action_just_released("ui_up"):
+	if Input.is_action_just_released("Jump"):
 		is_jumping = false
 		jump_stored = false
 
 func _physics_process(delta):
 
-	if Global.gamestart == true:
+	if Global.gamestart == true or Global.tutorial == true:
 		show()
-		var direction := Input.get_axis("ui_left", "ui_right")
+		main_menu_theme.stop() 
+		var direction := Input.get_axis("Left", "Right")
 	
 		if Input.is_action_just_pressed("Escape"):
 			get_tree().quit()
@@ -59,16 +62,16 @@ func _physics_process(delta):
 			powerup_timer.start()
 			Global.powerup_timer_started = true
 			
-		if Global.fruit_x2_powerup_timer_started == true and fruit_timer_start == false:
+		if Global.fruit_x2_powerup_timer_started == true and Global.fruit_timer_start == false:
+			fruit_powerup_timer.stop()
 			fruit_powerup_timer.start()
-			fruit_timer_start = true
+			Global.fruit_timer_start = true
 		
 		if combo_timer.time_left == 0:
 			combo_timer.start(5)
 		
 		if Global.comboed == true:
 			combo_timer.start(5)
-		print(combo_timer.time_left)
 		
 		jump(delta)
 	
@@ -90,9 +93,14 @@ func _physics_process(delta):
 		move_and_slide()
 		Global.player_y = global_position.y
 		Global.player_x = global_position.x
-		
+	
+	elif Global.gamestart == false and main_menu_theme.playing == false and menu_theme_play == false:
+		main_menu_theme.play()
+		menu_theme_play = false
+	
 	else:
 		hide()
+		
 
 func _on_powerup_timer_timeout() -> void:
 	Global.speed_multiplier = 1
@@ -109,7 +117,7 @@ func on_area_2d_body_entered(body: Node2D) -> void:
 func _on_fruit_powerup_timer_timeout() -> void:
 	Global.fruit_x2_powerup_timer_started = false
 	Global.powerup_fruit_delete = true
-	fruit_timer_start = false
+	Global.fruit_timer_start = false
 
 
 func _on_combo_timer_timeout() -> void:

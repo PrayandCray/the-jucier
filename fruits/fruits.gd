@@ -12,6 +12,7 @@ var fruit_x2 = false
 @onready var fruit: Sprite2D = $Fruit
 @onready var spawn_timer: Timer = $Spawn_Timer
 @onready var powerup_timer: Timer = $"Powerup Timer"
+@onready var fruit_powerup_timer: Timer = $"Fruit Powerup Timer"
 
 signal fruit_collide
 
@@ -65,6 +66,7 @@ func _on_area_2d_body_entered(body: Node) -> void:
 				for fruits in get_tree().get_nodes_in_group("fruits").size():
 					duplicate_fruit()
 				Global.fruit_x2_powerup_timer_started = true
+				Global.fruit_timer_start = false
 				fruit_x2 = false
 			emit_signal("fruit_collide")
 			Global.comboed = true
@@ -81,7 +83,7 @@ func duplicate_fruit():
 		var instance  = load("res://fruits/fruits.tscn")
 		var new_fruit = instance.instantiate()
 		get_parent().add_child(new_fruit)
-		new_fruit.global_position = Vector2(randi_range(40, 1650), 40)
+		new_fruit.global_position = Vector2(randi_range(40, 1500), 40)
 		new_fruit.linear_velocity = Vector2(randi_range(-100, 100), randi_range(50, 0))
 		new_fruit.add_to_group("fruits")
 		print("fruit_spawned!")
@@ -98,8 +100,8 @@ func _process(delta: float) -> void:
 		started = true
 		queue_free()
 	if Global.powerup_fruit_delete == true:
-		if get_tree().get_nodes_in_group("fruits").size() > 1: #check for how many fruits are on screen
-			queue_free()
+			if get_tree().get_nodes_in_group("fruits").size() >= 2:
+				queue_free()
 			Global.powerup_fruit_delete = false
 
 func start_timer(duration: float):

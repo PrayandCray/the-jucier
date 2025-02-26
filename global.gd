@@ -19,6 +19,8 @@ var fruit_x2_powerup_timer_started = false
 var powerup_fruit_delete = false
 var comboed = false
 var comboed_timeout = false
+var fruit_timer_start = false
+var tutorial = false
 
 func _ready() -> void:
 	pass

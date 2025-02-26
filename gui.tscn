@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk41qchik8f17"]
+[gd_scene load_steps=4 format=3 uid="uid://dk41qchik8f17"]
 
 [ext_resource type="Script" path="res://gui.gd" id="1_1823o"]
+[ext_resource type="Texture2D" uid="uid://8lbo8d54hhvu" path="res://Pixel Adventure 1/Free/Other/tutorial-1.png" id="2_2c7u3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4r4rt"]
 shadow_size = 9
@@ -40,7 +41,7 @@ vertical_alignment = 1
 [node name="Start_Button" type="Button" parent="CanvasLayer/VBoxContainer"]
 visibility_layer = 2
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0.393491, 0.910825, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
 action_mode = 0
 text = "start"
 metadata/_edit_use_anchors_ = true
@@ -48,11 +49,16 @@ metadata/_edit_use_anchors_ = true
 [node name="endless" type="Button" parent="CanvasLayer/VBoxContainer"]
 visibility_layer = 2
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0, 1, 0.121569, 1)
-theme_override_colors/icon_normal_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 action_mode = 0
 text = "endless"
 metadata/_edit_use_anchors_ = true
+
+[node name="tutorial" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(5.19812e-06, 0.720454, 0.995333, 1)
+toggle_mode = true
+text = "tutorial"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer"]
 anchors_preset = 1
@@ -84,9 +90,17 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "0"
 
+[node name="Tutorial Screen" type="TextureRect" parent="CanvasLayer"]
+offset_left = 479.0
+offset_top = 26.0
+offset_right = 1479.0
+offset_bottom = 176.0
+texture = ExtResource("2_2c7u3")
+
 [node name="Time Limit Timer" type="Timer" parent="."]
 wait_time = 120.0
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Start_Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/endless" to="." method="_on_endless_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="timeout" from="Time Limit Timer" to="." method="_on_timer_timeout"]

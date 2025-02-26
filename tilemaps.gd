@@ -13,6 +13,10 @@ func _process(delta: float) -> void:
 		_2.hide()
 		_1.collision_enabled = false
 		_2.collision_enabled = false
+		
+	if Global.tutorial == true:
+		_1.show()
+		_1.collision_enabled = true
 
 func level_change():
 	if Global.player_score >= 250:
