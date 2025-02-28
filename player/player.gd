@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var blender_area_2d: Area2D = $"blender area 2d"
 @onready var combo_timer: Timer = $"Combo Timer"
 @onready var main_menu_theme: AudioStreamPlayer = $"Main Menu Theme"
+@onready var in_game_song: AudioStreamPlayer = $"In-Game Song"
 
 
 const SPEED = 275
@@ -16,7 +17,7 @@ const JUMP_HOLD_TIME = 0.6
 var is_jumping = false
 var jump_timer = 0.1
 var jump_stored = false
-var menu_theme_play = false
+var music_playing = false
 
 
 func _ready() -> void:
@@ -51,7 +52,13 @@ func _physics_process(delta):
 
 	if Global.gamestart == true or Global.tutorial == true:
 		show()
-		main_menu_theme.stop() 
+		main_menu_theme.stop()
+		if music_playing == false and in_game_song.playing == false and main_menu_theme.playing == false:
+			in_game_song.play()
+			music_playing = true
+		if in_game_song.playing == false:
+			music_playing = false
+			
 		var direction := Input.get_axis("Left", "Right")
 	
 		if Input.is_action_just_pressed("Escape"):
@@ -94,9 +101,9 @@ func _physics_process(delta):
 		Global.player_y = global_position.y
 		Global.player_x = global_position.x
 	
-	elif Global.gamestart == false and main_menu_theme.playing == false and menu_theme_play == false:
+	elif Global.gamestart == false and main_menu_theme.playing == false and music_playing == false:
 		main_menu_theme.play()
-		menu_theme_play = false
+		music_playing = false
 	
 	else:
 		hide()
