@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://8hoevk47wgcs"
+path="res://.godot/imported/fruit sound.wav-6bdfbd39f53d1d8c2819dacb66910911.sample"
+
+[deps]
+
+source_file="res://music/fruit sound.wav"
+dest_files=["res://.godot/imported/fruit sound.wav-6bdfbd39f53d1d8c2819dacb66910911.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

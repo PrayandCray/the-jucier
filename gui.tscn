@@ -1,10 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dk41qchik8f17"]
+[gd_scene load_steps=8 format=3 uid="uid://dk41qchik8f17"]
 
 [ext_resource type="Script" path="res://gui.gd" id="1_1823o"]
 [ext_resource type="Texture2D" uid="uid://8lbo8d54hhvu" path="res://Pixel Adventure 1/Free/Other/tutorial-1.png" id="2_2c7u3"]
+[ext_resource type="Texture2D" uid="uid://tq51imlt24x2" path="res://Self-Made Art/customer_icon.png" id="2_2li3d"]
+[ext_resource type="Texture2D" uid="uid://cg7i2mndaxb6s" path="res://Self-Made Art/fruits/smoothie.png" id="2_1864f"]
+[ext_resource type="Texture2D" uid="uid://bmv8thy3ks6rp" path="res://Self-Made Art/fruits/fruit_basket.png" id="2_flpxl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4r4rt"]
 shadow_size = 9
+
+[sub_resource type="LabelSettings" id="LabelSettings_3kfc0"]
+font_size = 60
+font_color = Color(0, 0, 0, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 
 [node name="GUI" type="Control"]
 layout_mode = 3
@@ -80,10 +89,48 @@ offset_left = 13.0
 offset_right = 140.0
 offset_bottom = 40.0
 
-[node name="Score" type="Label" parent="CanvasLayer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="Score" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 text = "placeholder text"
+
+[node name="Customer_box" type="HBoxContainer" parent="CanvasLayer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Customer Icon" type="TextureRect" parent="CanvasLayer/HBoxContainer/VBoxContainer/Customer_box"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_2li3d")
+
+[node name="Current Fruits" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="Current Smoothies" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="Smoothie" type="TextureRect" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 79.0
+offset_top = 132.0
+offset_right = 129.0
+offset_bottom = 182.0
+texture = ExtResource("2_1864f")
+expand_mode = 2
+
+[node name="Fruit Basket" type="TextureRect" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 78.0
+offset_top = 86.0
+offset_right = 128.0
+offset_bottom = 136.0
+texture = ExtResource("2_flpxl")
+expand_mode = 2
 
 [node name="Combos" type="Label" parent="CanvasLayer"]
 offset_right = 40.0
@@ -96,6 +143,22 @@ offset_top = 26.0
 offset_right = 1479.0
 offset_bottom = 176.0
 texture = ExtResource("2_2c7u3")
+
+[node name="Game Over" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -11.5
+offset_right = 46.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game Over!"
+label_settings = SubResource("LabelSettings_3kfc0")
 
 [node name="Time Limit Timer" type="Timer" parent="."]
 wait_time = 120.0

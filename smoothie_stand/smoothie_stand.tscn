@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc8tw4o53crc6"]
+
+[ext_resource type="Texture2D" uid="uid://ne40ck2bopef" path="res://Self-Made Art/fruits/smoothie_stand.png" id="1_g835w"]
+[ext_resource type="Script" path="res://smoothie_stand/smoothie_stand.gd" id="2_a0pws"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qg7jo"]
+size = Vector2(54, 55)
+
+[node name="Smoothie Stand" type="Sprite2D"]
+texture_filter = 1
+position = Vector2(2215, 753)
+scale = Vector2(1.93391, 1.98812)
+texture = ExtResource("1_g835w")
+script = ExtResource("2_a0pws")
+
+[node name="smoothie_stand_area_2d" type="Area2D" parent="."]
+
+[node name="smoothie_stand_collision_shape" type="CollisionShape2D" parent="smoothie_stand_area_2d"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_qg7jo")

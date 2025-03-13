@@ -1,21 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://iob4k1sgwkcr"]
+[gd_scene load_steps=9 format=3 uid="uid://csbx86oq7nob6"]
 
-[ext_resource type="Texture2D" uid="uid://odipdtvub3yx" path="res://Pixel Adventure 1/Free/Items/Checkpoints/End/End (Idle).png" id="1_omuue"]
+[ext_resource type="Texture2D" uid="uid://dlr44wvybbnta" path="res://Self-Made Art/blender_juicing_animation/blender.png" id="1_wdjqb"]
 [ext_resource type="Script" path="res://blender.gd" id="2_tvh34"]
+[ext_resource type="Texture2D" uid="uid://d28idwr62iwm0" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation1.png" id="3_a1nk5"]
+[ext_resource type="Texture2D" uid="uid://u0w4mxwxxksq" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation2.png" id="4_yacvn"]
+[ext_resource type="Texture2D" uid="uid://p888avwlra0j" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation3.png" id="5_7hnnr"]
+[ext_resource type="Texture2D" uid="uid://4u6qghjajwav" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation4.png" id="6_tdts6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hpaax"]
-size = Vector2(46.7027, 44.973)
+size = Vector2(24.7927, 47.8558)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fa200"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_a1nk5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yacvn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7hnnr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tdts6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Blender" type="Sprite2D"]
 texture_filter = 1
 position = Vector2(960, 871)
 scale = Vector2(1.73438, 1.73438)
-texture = ExtResource("1_omuue")
+texture = ExtResource("1_wdjqb")
 script = ExtResource("2_tvh34")
 
 [node name="blender area 2d" type="Area2D" parent="."]
 
 [node name="blender collision" type="CollisionShape2D" parent="blender area 2d"]
 visibility_layer = 3
-position = Vector2(0.576575, 10.9549)
+position = Vector2(0.28833, 0.28833)
 shape = SubResource("RectangleShape2D_hpaax")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fa200")

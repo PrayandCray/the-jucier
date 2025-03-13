@@ -1,13 +1,13 @@
 extends CharacterBody2D
 
-@onready var timer: Timer = $"../Fruits/Timer"
 @onready var powerup_timer: Timer = $"Powerup Timer"
 @onready var fruit_powerup_timer: Timer = $"Fruit Powerup Timer"
-@onready var blender_area_2d: Area2D = $"blender area 2d"
 @onready var combo_timer: Timer = $"Combo Timer"
 @onready var main_menu_theme: AudioStreamPlayer = $"Main Menu Theme"
 @onready var in_game_song: AudioStreamPlayer = $"In-Game Song"
-
+@onready var awakening_speck: AudioStreamPlayer = $"Awakening - Speck"
+@onready var fruit_dead_sfx: AudioStreamPlayer = $fruit_dead_sfx
+@onready var blender_area_2d: Area2D = $"../Blender Animation/blender area 2d"
 
 const SPEED = 275
 const JUMP_VELOCITY = -300
@@ -19,10 +19,9 @@ var jump_timer = 0.1
 var jump_stored = false
 var music_playing = false
 
-
 func _ready() -> void:
-	pass
-	
+	blender_area_2d.body_entered.connect(on_area_2d_body_entered)
+
 func jump(delta):
 	
 	if not is_on_floor():
@@ -43,6 +42,9 @@ func jump(delta):
 		else:
 			is_jumping = false
 			velocity = Vector2(0,-50)
+	
+	if is_on_ceiling():
+		is_jumping = false
 			
 	if Input.is_action_just_released("Jump"):
 		is_jumping = false
@@ -96,7 +98,22 @@ func _physics_process(delta):
 			else:
 				Global.player_fruits = 0
 				print("You Fell and Dropped your Ego :(")
-	
+		
+		if Global.fruit_dead == true:
+			fruit_dead_sfx.pitch_scale += Global.fruit_sfx_pitch_scale
+			fruit_dead_sfx.play()
+			Global.fruit_dead = false
+		
+		if Global.gameover == true:
+			in_game_song.stop()
+			hide()
+			if in_game_song.playing == false and awakening_speck.playing == false:
+				awakening_speck.play()
+
+		if Global.fruits_emptied >= 5:
+			Global.fruits_emptied -= 5
+			Global.blender_started = true
+
 		move_and_slide()
 		Global.player_y = global_position.y
 		Global.player_x = global_position.x
@@ -108,24 +125,31 @@ func _physics_process(delta):
 	else:
 		hide()
 		
-
+		
 func _on_powerup_timer_timeout() -> void:
 	Global.speed_multiplier = 1
 	Global.JUMP_VELOCITY = -300
 	Global.powerup_timer_started = false
 
 func on_area_2d_body_entered(body: Node2D) -> void:
-	print("Bag Emptied!")
-	Global.fruits_emptied += Global.player_fruits
-	Global.player_score += (Global.player_fruits * 10)
-	Global.player_fruits = 0
-
-
+	if Global.smoothies <= Global.smoothie_limit - 1 and Global.blender_started == false:
+		print("Bag Emptied!")
+		Global.fruits_emptied += Global.player_fruits
+		Global.player_score += (Global.player_fruits * 5)
+		Global.player_fruits = 0
+	
 func _on_fruit_powerup_timer_timeout() -> void:
 	Global.fruit_x2_powerup_timer_started = false
-	Global.powerup_fruit_delete = true
+	Global.fruit_x2_time = 2.5
 	Global.fruit_timer_start = false
 
-
 func _on_combo_timer_timeout() -> void:
+	fruit_dead_sfx.pitch_scale = 1
 	Global.comboed_timeout = true
+
+func _on_smoothie_stand_area_2d_body_entered(body: Node2D) -> void:
+	for smoothies in range(Global.smoothies):
+		Global.sold_smoothies += 1
+	print("sold ", str(Global.smoothies), " smoothies")
+	Global.player_score += (Global.smoothies * 40)
+	Global.smoothies = 0

@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://ck8tvem8tcjcy"]
+
+[ext_resource type="Texture2D" uid="uid://d28idwr62iwm0" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation1.png" id="1_j2f2k"]
+[ext_resource type="Texture2D" uid="uid://u0w4mxwxxksq" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation2.png" id="2_6hnl0"]
+[ext_resource type="Texture2D" uid="uid://p888avwlra0j" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation3.png" id="3_vf8ug"]
+[ext_resource type="Texture2D" uid="uid://4u6qghjajwav" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation4.png" id="4_2a3k6"]
+[ext_resource type="Script" path="res://blender_animation.gd" id="5_7tpq1"]
+[ext_resource type="Texture2D" uid="uid://dlr44wvybbnta" path="res://Self-Made Art/blender_juicing_animation/blender.png" id="5_i1wgq"]
+[ext_resource type="Script" path="res://blender/blending_timer.gd" id="6_f2fig"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4o54y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_j2f2k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_6hnl0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vf8ug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2a3k6")
+}],
+"loop": true,
+"name": &"Blending",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_i1wgq")
+}],
+"loop": true,
+"name": &"Empty",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ferkf"]
+size = Vector2(36, 52.5)
+
+[node name="Blender Animation" type="AnimatedSprite2D"]
+texture_filter = 1
+position = Vector2(869, 789)
+sprite_frames = SubResource("SpriteFrames_4o54y")
+animation = &"Empty"
+script = ExtResource("5_7tpq1")
+
+[node name="blender area 2d" type="Area2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 1)
+
+[node name="blender collision" type="CollisionShape2D" parent="blender area 2d"]
+visibility_layer = 3
+position = Vector2(0, 7.25)
+shape = SubResource("RectangleShape2D_ferkf")
+
+[node name="Blending Timer" type="Timer" parent="."]
+wait_time = 5.0
+script = ExtResource("6_f2fig")
+
+[connection signal="timeout" from="Blending Timer" to="Blending Timer" method="_on_timeout"]

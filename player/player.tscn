@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://0vsq7qylappr"]
+[gd_scene load_steps=8 format=3 uid="uid://0vsq7qylappr"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_015cx"]
 [ext_resource type="Texture2D" uid="uid://b850iqlyvfi5q" path="res://Pixel Adventure 1/Free/Main Characters/Ninja Frog/Jump (32x32).png" id="1_bhm20"]
 [ext_resource type="AudioStream" uid="uid://cfyksx2h7x4ng" path="res://music/Menu Theme (1).wav" id="3_ty8mk"]
+[ext_resource type="AudioStream" uid="uid://8hoevk47wgcs" path="res://music/fruit sound.wav" id="4_i76p0"]
 [ext_resource type="AudioStream" uid="uid://cht10uttp78a3" path="res://music/In-Game Song.mp3" id="4_rw1t6"]
+[ext_resource type="AudioStream" uid="uid://pq4jeyvwutak" path="res://music/awakening - specksicle.mp3" id="5_k3ll1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48aou"]
 size = Vector2(46, 56)
@@ -37,6 +39,15 @@ stream = ExtResource("3_ty8mk")
 
 [node name="In-Game Song" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_rw1t6")
+volume_db = -8.666
+
+[node name="Awakening - Speck" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_k3ll1")
+volume_db = -10.04
+
+[node name="fruit_dead_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_i76p0")
+volume_db = -3.25
 
 [connection signal="timeout" from="Powerup Timer" to="." method="_on_powerup_timer_timeout"]
 [connection signal="timeout" from="Fruit Powerup Timer" to="." method="_on_fruit_powerup_timer_timeout"]
