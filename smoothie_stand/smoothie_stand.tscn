@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cc8tw4o53crc6"]
 
 [ext_resource type="Texture2D" uid="uid://ne40ck2bopef" path="res://Self-Made Art/fruits/smoothie_stand.png" id="1_g835w"]
-[ext_resource type="Script" path="res://smoothie_stand/smoothie_stand.gd" id="2_a0pws"]
+[ext_resource type="Script" uid="uid://caxq6herp8yep" path="res://smoothie_stand/smoothie_stand.gd" id="2_a0pws"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qg7jo"]
 size = Vector2(54, 55)

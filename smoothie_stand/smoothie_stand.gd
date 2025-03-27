@@ -7,9 +7,9 @@ func _process(delta: float) -> void:
 		show()
 		smoothie_stand_area_2d.show()
 		smoothie_stand_area_2d.global_position = global_position
-		if Global.level == 1:
+		if Global.level == 0:
 			global_position = Vector2(1823, 877) 
-		if Global.level == 2:
+		if Global.level == 1:
 			global_position = Vector2(80, 860)
 		if Global.gameover == true:
 			hide()

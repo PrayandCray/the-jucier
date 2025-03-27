@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://0vsq7qylappr"]
 
-[ext_resource type="Script" path="res://player/player.gd" id="1_015cx"]
+[ext_resource type="Script" uid="uid://bv1ifny54bfew" path="res://player/player.gd" id="1_015cx"]
 [ext_resource type="Texture2D" uid="uid://b850iqlyvfi5q" path="res://Pixel Adventure 1/Free/Main Characters/Ninja Frog/Jump (32x32).png" id="1_bhm20"]
 [ext_resource type="AudioStream" uid="uid://cfyksx2h7x4ng" path="res://music/Menu Theme (1).wav" id="3_ty8mk"]
 [ext_resource type="AudioStream" uid="uid://8hoevk47wgcs" path="res://music/fruit sound.wav" id="4_i76p0"]

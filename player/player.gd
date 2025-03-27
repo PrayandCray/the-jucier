@@ -18,6 +18,7 @@ var is_jumping = false
 var jump_timer = 0.1
 var jump_stored = false
 var music_playing = false
+var spawned = false
 
 func _ready() -> void:
 	blender_area_2d.body_entered.connect(on_area_2d_body_entered)
@@ -51,11 +52,24 @@ func jump(delta):
 		jump_stored = false
 
 func _physics_process(delta):
-
+	
+	if Global.menuing == true:
+		in_game_song.stop()
+		if music_playing == false:
+			main_menu_theme.play()
+			music_playing = true
+		if main_menu_theme.playing == false:
+			music_playing = false
+	
 	if Global.gamestart == true or Global.tutorial == true:
-		show()
+		if Global.spawned == false:
+			global_position = Vector2(938, 491)
+			velocity = Vector2(0,0)
+			show()
+			Global.spawned = true
+			
 		main_menu_theme.stop()
-		if music_playing == false and in_game_song.playing == false and main_menu_theme.playing == false:
+		if music_playing == false:
 			in_game_song.play()
 			music_playing = true
 		if in_game_song.playing == false:
@@ -64,7 +78,12 @@ func _physics_process(delta):
 		var direction := Input.get_axis("Left", "Right")
 	
 		if Input.is_action_just_pressed("Escape"):
-			get_tree().quit()
+			Global.gamestart = false
+			Global.tutorial = false
+			Global.menuing = true
+			Global.endless = false
+			hide()
+			Global.spawned = false
 		
 		if Global.speed_multiplier == 1.5 and Global.powerup_timer_started == false:
 			powerup_timer.stop()
@@ -79,8 +98,9 @@ func _physics_process(delta):
 		if combo_timer.time_left == 0:
 			combo_timer.start(5)
 		
-		if Global.comboed == true:
+		if Global.combo_restart == true:
 			combo_timer.start(5)
+			Global.combo_restart = false
 		
 		jump(delta)
 	

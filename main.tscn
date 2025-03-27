@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=4 uid="uid://2x6tc3se5bs4"]
 
-[ext_resource type="Texture2D" uid="uid://11fcbuso1014" path="res://Self-Made Art/background/2nd background/1st edition modified_hd.png" id="1_efqf6"]
+[ext_resource type="Texture2D" uid="uid://bkfdtdosqm4oc" path="res://Self-Made Art/background/3rd background/game_background.png" id="1_5vw27"]
 [ext_resource type="PackedScene" uid="uid://dk41qchik8f17" path="res://gui.tscn" id="1_i6otp"]
 [ext_resource type="PackedScene" uid="uid://dfi7cfiay6whk" path="res://tilemaps.tscn" id="2_e3nm4"]
 [ext_resource type="PackedScene" uid="uid://cc8tw4o53crc6" path="res://smoothie_stand/smoothie_stand.tscn" id="3_543vb"]
 [ext_resource type="PackedScene" uid="uid://0vsq7qylappr" path="res://player/player.tscn" id="3_k31pb"]
 [ext_resource type="PackedScene" uid="uid://dfq7wo7fpr8db" path="res://fruits/fruits.tscn" id="4_rh740"]
-[ext_resource type="Script" path="res://player/fruit_spawn.gd" id="7_qp0q8"]
+[ext_resource type="Script" uid="uid://bn2qarl54vdww" path="res://player/fruit_spawn.gd" id="7_qp0q8"]
 [ext_resource type="PackedScene" uid="uid://ck8tvem8tcjcy" path="res://blender/blender_animation.tscn" id="8_wcmgl"]
 
 [node name="Node" type="Node"]
@@ -15,7 +15,7 @@
 texture_filter = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
-texture = ExtResource("1_efqf6")
+texture = ExtResource("1_5vw27")
 
 [node name="GUI" parent="." instance=ExtResource("1_i6otp")]
 anchors_preset = -1
@@ -26,7 +26,7 @@ offset_right = 12.0
 offset_bottom = 37.0
 
 [node name="Blender Animation" parent="." instance=ExtResource("8_wcmgl")]
-position = Vector2(960, 883)
+position = Vector2(960, 894)
 scale = Vector2(1.36016, 1.36016)
 
 [node name="blender area 2d" parent="Blender Animation" index="0"]
@@ -62,7 +62,7 @@ scale = Vector2(38.782, 3.72021)
 
 [node name="Player" parent="." instance=ExtResource("3_k31pb")]
 visibility_layer = 1
-position = Vector2(780, 690)
+position = Vector2(938, 491)
 scale = Vector2(1.02406, 1.02406)
 
 [node name="Fruit Spawn" type="Node2D" parent="."]

@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://u0w4mxwxxksq" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation2.png" id="2_6hnl0"]
 [ext_resource type="Texture2D" uid="uid://p888avwlra0j" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation3.png" id="3_vf8ug"]
 [ext_resource type="Texture2D" uid="uid://4u6qghjajwav" path="res://Self-Made Art/blender_juicing_animation/blender_juicing_animation4.png" id="4_2a3k6"]
-[ext_resource type="Script" path="res://blender_animation.gd" id="5_7tpq1"]
+[ext_resource type="Script" uid="uid://bfhnw4il8tjod" path="res://blender_animation.gd" id="5_7tpq1"]
 [ext_resource type="Texture2D" uid="uid://dlr44wvybbnta" path="res://Self-Made Art/blender_juicing_animation/blender.png" id="5_i1wgq"]
-[ext_resource type="Script" path="res://blender/blending_timer.gd" id="6_f2fig"]
+[ext_resource type="Script" uid="uid://ci3ig0y8l5f1x" path="res://blender/blending_timer.gd" id="6_f2fig"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4o54y"]
 animations = [{

@@ -9,31 +9,36 @@ func _process(delta: float) -> void:
 		level_change()
 		
 	else: 
-		_1.hide()
-		_2.hide()
-		_1.collision_enabled = false
-		_2.collision_enabled = false
+		for i in get_children():
+			i.hide()
+			i.collision_enabled = false
 		
 	if Global.tutorial == true:
 		_1.show()
 		_1.collision_enabled = true
 	
 	if Global.gameover == true:
-		_1.hide()
-		_2.hide()
-		_1.collision_enabled = false
-		_2.collision_enabled = false
+		for i in get_children():
+			i.hide()
+			i.collision_enabled = false
+	
+	if Global.endless == true and Global.menuing == false:
+		_1.show()
+		_1.collision_enabled = true
 
 func level_change():
-	if Global.player_score >= 250:
-		if Global.level == 1:
-			_1.hide()
-			_1.collision_enabled = false
-			_2.show()
-			_2.collision_enabled = true
-			Global.level += 1
+	if Global.player_score >= 250 and Global.endless == false:
+		Global.level += 1
+		for i in get_children():
+			i.hide()
+			i.collision_enabled = false
+		Global.menuing = true
+		Global.gamestart = false
+		Global.tutorial = false
+		Global.player_score = 0
+		Global.spawned = false
+		
 	else: 
-		_1.collision_enabled = true
-		_2.collision_enabled = false
-		_2.hide()
-		_1.show()
+		var current = get_children()[Global.level]
+		current.show()
+		current.collision_enabled = true

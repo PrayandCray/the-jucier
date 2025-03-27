@@ -2,8 +2,10 @@ extends AnimatedSprite2D
 
 @onready var blender_area_2d: Area2D = $"blender area 2d"
 
+var pos_set = false
+
 func _ready() -> void:
-	pass
+	hide()
 
 func _process(delta: float) -> void:
 	if Global.gamestart == true:
@@ -12,16 +14,34 @@ func _process(delta: float) -> void:
 		blender_area_2d.global_position = global_position
 		
 		if Global.blender_started == true:
-			play("default")
+			if pos_set == false:
+				global_position.y -= 8
+				play("default")
+				pos_set = true
+				
 		elif Global.blender_started == false:
 			stop()
-		
-		if Global.level == 1:
-			global_position = Vector2(960, 885) 
-		if Global.level == 2:
-			global_position = Vector2(1875, 837)
+			pos_set = false
+			if Global.level == 0:
+				global_position = Vector2(960, 893)
+			if Global.level == 1:
+				global_position = Vector2(1875, 843)
+				
 		if Global.gameover == true:
 			hide()
 			blender_area_2d.hide()
-	else:
+			
+	if Global.tutorial == true:
+		if Global.blender_show == false:
+			hide()
+		elif Global.blender_show == true:
+			show()
+			
+	if Global.gamestart == false and Global.tutorial == false:
+		hide()
+	
+	if Global.menuing == true:
+		stop()
+		play("Empty")
+		Global.blender_started = false
 		hide()

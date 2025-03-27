@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dfq7wo7fpr8db"]
 
 [ext_resource type="Texture2D" uid="uid://b2bw5pnunoub" path="res://icon.svg" id="1_20xmp"]
-[ext_resource type="Script" path="res://fruits/fruit_2d.gd" id="3_mvjfs"]
+[ext_resource type="Script" uid="uid://byyu7jh7xx85f" path="res://fruits/fruit_2d.gd" id="3_mvjfs"]
 [ext_resource type="AudioStream" uid="uid://8hoevk47wgcs" path="res://music/fruit sound.wav" id="3_vke7e"]
 
 [sub_resource type="GDScript" id="GDScript_pmh8f"]
