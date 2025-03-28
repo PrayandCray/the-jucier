@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://0vsq7qylappr"]
+[gd_scene load_steps=33 format=3 uid="uid://0vsq7qylappr"]
 
 [ext_resource type="Script" uid="uid://bv1ifny54bfew" path="res://player/player.gd" id="1_015cx"]
 [ext_resource type="Texture2D" uid="uid://rf5ucuj1a5ta" path="res://Self-Made Art/character/rio_left_jump.png" id="2_8t03j"]
 [ext_resource type="Texture2D" uid="uid://u38s10ebilo4" path="res://Self-Made Art/character/rio_left-spritesheet.png" id="2_boad6"]
 [ext_resource type="Texture2D" uid="uid://dfyt4qvhn6qs1" path="res://Self-Made Art/character/rio_left_falling.png" id="2_ebec5"]
 [ext_resource type="Texture2D" uid="uid://b3f3iyoqihtyd" path="res://Self-Made Art/character/rio_right-spritesheet.png" id="3_hg6s5"]
+[ext_resource type="Texture2D" uid="uid://o8jwir03rf1" path="res://Self-Made Art/character/rio_left_idle-spritesheet.png" id="3_kb6p2"]
 [ext_resource type="Script" uid="uid://c2m1xu07ryf5v" path="res://player/animated_sprite_2d.gd" id="3_rgyib"]
 [ext_resource type="AudioStream" uid="uid://cfyksx2h7x4ng" path="res://music/Menu Theme (1).wav" id="3_ty8mk"]
 [ext_resource type="Texture2D" uid="uid://ca4vbmvsnp8wd" path="res://Self-Made Art/character/rio_right_jump.png" id="4_2ieo8"]
@@ -12,6 +13,23 @@
 [ext_resource type="AudioStream" uid="uid://cht10uttp78a3" path="res://music/In-Game Song.mp3" id="4_rw1t6"]
 [ext_resource type="AudioStream" uid="uid://pq4jeyvwutak" path="res://music/awakening - specksicle.mp3" id="5_k3ll1"]
 [ext_resource type="Texture2D" uid="uid://dkq5jjpya7er0" path="res://Self-Made Art/character/rio_right_falling.png" id="5_yllr7"]
+[ext_resource type="Texture2D" uid="uid://2qqgvc5q5lil" path="res://Self-Made Art/character/rio_right_idle-spritesheet.png" id="7_wodsf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqiix"]
+atlas = ExtResource("3_kb6p2")
+region = Rect2(0, 0, 15, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7oew"]
+atlas = ExtResource("3_kb6p2")
+region = Rect2(15, 0, 15, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c35mf"]
+atlas = ExtResource("3_kb6p2")
+region = Rect2(30, 0, 15, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65viv"]
+atlas = ExtResource("3_kb6p2")
+region = Rect2(45, 0, 15, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hg6s5"]
 atlas = ExtResource("2_boad6")
@@ -27,6 +45,22 @@ region = Rect2(30, 0, 15, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ebec5"]
 atlas = ExtResource("2_boad6")
+region = Rect2(45, 0, 15, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7c3f"]
+atlas = ExtResource("7_wodsf")
+region = Rect2(0, 0, 15, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjvpn"]
+atlas = ExtResource("7_wodsf")
+region = Rect2(15, 0, 15, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7qer"]
+atlas = ExtResource("7_wodsf")
+region = Rect2(30, 0, 15, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4c7l"]
+atlas = ExtResource("7_wodsf")
 region = Rect2(45, 0, 15, 29)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yllr7"]
@@ -53,6 +87,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"left fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqiix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7oew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c35mf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65viv")
+}],
+"loop": true,
+"name": &"left idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -86,6 +137,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"right fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7c3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjvpn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7qer")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4c7l")
+}],
+"loop": true,
+"name": &"right idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -127,7 +195,7 @@ texture_filter = 1
 position = Vector2(30.8623, 55.029)
 scale = Vector2(2.38777, 2.38777)
 sprite_frames = SubResource("SpriteFrames_yllr7")
-animation = &"right fall"
+animation = &"right idle"
 speed_scale = 2.0
 script = ExtResource("3_rgyib")
 

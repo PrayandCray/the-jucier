@@ -11,8 +11,8 @@ extends CharacterBody2D
 
 const SPEED = 275
 const JUMP_VELOCITY = -300
-const JUMP_HOLD_FORCE = -10
-const JUMP_HOLD_TIME = 0.6
+const JUMP_HOLD_FORCE = -7
+const JUMP_HOLD_TIME = 0.5
 
 var is_jumping = false
 var jump_timer = 0.1
@@ -61,6 +61,19 @@ func _physics_process(delta):
 		if main_menu_theme.playing == false:
 			music_playing = false
 	
+	if Input.is_action_just_pressed("Escape"):
+		if Global.gamestart == true:
+			Global.gamestart = false
+			Global.tutorial = false
+			Global.endless = false
+			Global.level_select == false
+			Global.menuing = true
+		else:
+			Global.level_select == false
+			Global.menuing = true
+		hide()
+		Global.spawned = false
+	
 	if Global.gamestart == true or Global.tutorial == true:
 		if Global.spawned == false:
 			global_position = Vector2(938, 491)
@@ -77,13 +90,6 @@ func _physics_process(delta):
 			
 		var direction := Input.get_axis("Left", "Right")
 	
-		if Input.is_action_just_pressed("Escape"):
-			Global.gamestart = false
-			Global.tutorial = false
-			Global.menuing = true
-			Global.endless = false
-			hide()
-			Global.spawned = false
 		
 		if Global.speed_multiplier == 1.5 and Global.powerup_timer_started == false:
 			powerup_timer.stop()

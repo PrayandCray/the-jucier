@@ -18,6 +18,7 @@ var sold_smoothies = 0
 var level = 0
 var gamestart = false
 var menuing = true
+var level_select = false
 var spawned = false
 var fruit_dead = false
 var customer_served = false

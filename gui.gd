@@ -14,6 +14,7 @@ extends Control
 @onready var tutorial: Button = $CanvasLayer/VBoxContainer/HBoxContainer/tutorial
 @onready var tutorial_hbox: HBoxContainer = $"CanvasLayer/Tutorial Hbox"
 @onready var game_over: Label = $"CanvasLayer/Game Over"
+@onready var levels: BoxContainer = $CanvasLayer/Levels
 @onready var current_fruits: Label = $"CanvasLayer/HBoxContainer/VBoxContainer/HBoxContainer/Current Fruits"
 @onready var current_smoothies: Label = $"CanvasLayer/HBoxContainer/VBoxContainer/HBoxContainer2/Current Smoothies"
 @onready var customer_icon: TextureRect = $"CanvasLayer/HBoxContainer/VBoxContainer/Customer_box/Customer Icon"
@@ -151,21 +152,9 @@ func _on_timer_timeout() -> void:
 	customer_box.get_children().clear()
 
 func _on_button_pressed() -> void:
-	Global.gamestart = true
-	time_limit_timer.start()
-	start_button.hide()
-	endless.hide()
-	tutorial.hide()
-	game_name.hide()
-	score.show()
-	time_limit.show()
-	current_fruits.show()
-	current_smoothies.show()
-	smoothie.show()
-	fruit_basket.show()
-	if Global.endless == false:
-		for i in customer_box.get_children():
-			i.hide()
+	
+	Global.menuing = false
+	level_select_setup()
 
 func _on_endless_pressed() -> void:
 
@@ -186,7 +175,6 @@ func _on_tutorial_pressed() -> void:
 	tutorial_hbox.hide()
 	
 func gui_setup():
-	Global.menuing = false
 	if customers_spawned == false and Global.endless == false:
 		for i in customer_box.get_children():
 			i.show()
@@ -216,24 +204,35 @@ func gui_setup():
 	tutorial.hide()
 	
 func menu_setup():
-	for i in customer_box.get_children():
-		i.hide()
-		if i == $"CanvasLayer/HBoxContainer/VBoxContainer/Customer_box/Customer Icon":
+	if Global.level_select == false:
+		for i in customer_box.get_children():
 			i.hide()
-			customers_spawned = false
-		else:
-			i.queue_free()
-	Global.customer_count = 15
-	combos.hide()
-	time_limit.hide()
-	tutorial_hbox.hide()
-	score.hide()
-	current_fruits.hide()
-	current_smoothies.hide()
-	smoothie.hide()
-	fruit_basket.hide()
-	customer_box.hide()
-	game_name.show()
-	start_button.show()
-	endless.show()
-	tutorial.show()
+			if i == $"CanvasLayer/HBoxContainer/VBoxContainer/Customer_box/Customer Icon":
+				i.hide()
+				customers_spawned = false
+			else:
+				i.queue_free()
+		Global.customer_count = 15
+		combos.hide()
+		time_limit.hide()
+		tutorial_hbox.hide()
+		score.hide()
+		current_fruits.hide()
+		current_smoothies.hide()
+		smoothie.hide()
+		fruit_basket.hide()
+		customer_box.hide()
+		game_name.show()
+		start_button.show()
+		endless.show()
+		tutorial.show()
+		for child in levels.get_children():
+			child.hide()
+	
+func level_select_setup():
+	game_name.hide()
+	start_button.hide()
+	endless.hide()
+	tutorial.hide()
+	for child in levels.get_children():
+		child.show()

@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 			i.hide()
 			i.collision_enabled = false
 	
-	if Global.endless == true and Global.menuing == false:
+	if Global.endless == true and Global.gamestart == true:
 		_1.show()
 		_1.collision_enabled = true
 
