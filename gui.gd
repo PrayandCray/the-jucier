@@ -13,7 +13,7 @@ extends Control
 @onready var combo_timer: Timer = $"Combo Timer"
 @onready var tutorial: Button = $CanvasLayer/VBoxContainer/HBoxContainer/tutorial
 @onready var tutorial_hbox: HBoxContainer = $"CanvasLayer/Tutorial Hbox"
-@onready var game_over: Label = $"CanvasLayer/Game Over"
+@onready var game_over: TextureRect = $"CanvasLayer/Game Over"
 @onready var levels: BoxContainer = $CanvasLayer/Levels
 @onready var current_fruits: Label = $"CanvasLayer/HBoxContainer/VBoxContainer/HBoxContainer/Current Fruits"
 @onready var current_smoothies: Label = $"CanvasLayer/HBoxContainer/VBoxContainer/HBoxContainer2/Current Smoothies"
@@ -30,6 +30,8 @@ var tutorial_level = 0
 var customers_spawned = false
 var setup = false
 var tutorial_progress = 0
+
+var customers_in_levels = [7, 8, 9, 6, 7, 12]
 
 func _physics_process(delta: float) -> void:
 
@@ -92,10 +94,11 @@ func _physics_process(delta: float) -> void:
 			Global.fruit_sfx_pitch_scale = 0
 			Global.comboed_timeout = false
 			
-		if Global.sold_smoothies >= 1 and Global.endless == false:
+		if Global.sold_smoothies > 0 and Global.endless == false:
 			for customers in Global.sold_smoothies:
 				customer_box.get_children().back().queue_free()
-				Global.sold_smoothies -= 0.5
+				Global.sold_smoothies -= 1
+				Global.customer_count -= 1
 
 
 	if Global.tutorial == true:
@@ -149,7 +152,13 @@ func _on_timer_timeout() -> void:
 	current_smoothies.hide()
 	smoothie.hide()
 	fruit_basket.hide()
-	customer_box.get_children().clear()
+	for i in customer_box.get_children():
+		i.hide()
+		if i == $"CanvasLayer/HBoxContainer/VBoxContainer/Customer_box/Customer Icon":
+			i.hide()
+			customers_spawned = false
+		else:
+			i.queue_free()
 
 func _on_button_pressed() -> void:
 	
@@ -176,13 +185,12 @@ func _on_tutorial_pressed() -> void:
 	
 func gui_setup():
 	if customers_spawned == false and Global.endless == false:
-		for i in customer_box.get_children():
-			i.show()
-		for i in range(Global.customer_count):
+		for i in range(customers_in_levels[Global.level]):
 			var new_customer = customer_icon.duplicate()
 			customer_box.add_child(new_customer)
 			new_customer.show()
 		customers_spawned = true
+	print(Global.customer_count)
 	if Global.endless == true and customers_spawned == true:
 		for i in customer_box.get_children():
 			i.hide()
@@ -191,6 +199,7 @@ func gui_setup():
 				customers_spawned = false
 			else:
 				i.queue_free()
+	game_over.hide()
 	time_limit.show()
 	score.show()
 	current_fruits.show()
@@ -212,7 +221,8 @@ func menu_setup():
 				customers_spawned = false
 			else:
 				i.queue_free()
-		Global.customer_count = 15
+		game_over.hide()
+		Global.gameover = false
 		combos.hide()
 		time_limit.hide()
 		tutorial_hbox.hide()

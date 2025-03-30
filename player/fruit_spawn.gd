@@ -20,17 +20,12 @@ func _process(delta: float) -> void:
 func _instantiate():
 	var fruit_instance = fruits_scene.instantiate()
 	add_child(fruit_instance)
-	fruit_instance.global_position = Vector2(randi_range(-100, 1500), 40)
+	fruit_instance.global_position = Vector2(randi_range(-100, 1500), 0)
 	fruit_instance.linear_velocity = Vector2(randi_range(-100, 100), randi_range(50, 0))
 	fruit_instance.show()
 	fruit_instance.add_to_group("fruits")
 			
 func _on_fruit_timeout():
-	print("fruit_timeout")
+	print("fruit_spawned")
 	_instantiate()
 	fruit_spawn_timer.start(Global.fruit_x2_time)
-
-
-func _on_new_fruit():
-	print("new_fruit")
-	_instantiate()

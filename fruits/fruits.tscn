@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b2bw5pnunoub" path="res://icon.svg" id="1_20xmp"]
 [ext_resource type="Script" uid="uid://byyu7jh7xx85f" path="res://fruits/fruit_2d.gd" id="3_mvjfs"]
 [ext_resource type="AudioStream" uid="uid://8hoevk47wgcs" path="res://music/fruit sound.wav" id="3_vke7e"]
+[ext_resource type="Script" uid="uid://bffwwdvnol4si" path="res://fruits/spawn_timer.gd" id="4_7mx28"]
 
 [sub_resource type="GDScript" id="GDScript_pmh8f"]
 resource_name = "fruits.gd"
@@ -12,6 +13,7 @@ script/source = "extends RigidBody2D
 @onready var area_2d: Area2D = $Area2D
 @onready var fruit_2d: Sprite2D = $Fruit2D
 @onready var fruit_sound: AudioStreamPlayer = $fruit_sound
+@onready var spawn_timer: Timer = $spawn_timer
 
 var fruits_collected = 0
 var time_on_ground = 3
@@ -19,17 +21,13 @@ var rarity = 0
 var started = false
 var speed_power = false
 var fruit_x2 = false
-var spawn_timer : Timer
 var timer_started = false
 
 signal fruit_collide
 signal new_fruit
 
 func _ready() -> void:
-	spawn_timer = Timer.new()
-	add_child(spawn_timer)
 	new_fruit.connect(Callable(fruit_spawn, \"_on_new_fruit\"))
-	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 
 func _on_area_2d_body_entered(body: Node) -> void:
 	if body is CharacterBody2D:
@@ -46,19 +44,17 @@ func _on_area_2d_body_entered(body: Node) -> void:
 			Global.comboed = true
 			timer_started = false
 			print(\"player collided w fruit\")
-			self.remove_from_group(\"fruits\")
-			print(new_fruit.get_connections())
-			new_fruit.emit()
+			remove_from_group(\"fruits\")
 			Global.player_fruits += 1 
 			queue_free()
 		else:
 			print(\"empty ur bag and stop being greedy\")
 
 func _process(delta: float) -> void:
-	if global_position.y > 1065:
-		self.remove_from_group(\"fruits\")
-		new_fruit.emit()
-		self.queue_free()
+	if position.y > 1500:
+		remove_from_group(\"fruits\")
+		queue_free()
+		print(\"out_of_bounds\")
 		
 	if Global.powerup_fruit_delete == true:
 			print(\"delete\")
@@ -69,32 +65,23 @@ func _process(delta: float) -> void:
 		if get_tree().get_nodes_in_group(\"fruits\").size() >= 1:
 				Global.fruit_delete = true
 
-func _on_spawn_timer_timeout():
-	Global.fruit_timer_start == false
-	queue_free()
-	print(\"timeout\")
-
 func speed_powerup():
 	Global.speed_multiplier = 1.5
 	Global.JUMP_VELOCITY = -385
 	Global.powerup_timer_started = false
 	
 
+
 func _on_body_entered(body: Node) -> void:
-	if body is TileMapLayer and  timer_started == false:
-			print(\"started\")
-			spawn_timer.start(4)
-			timer_started = true
+	if body is TileMapLayer:
+		spawn_timer.start(5)
+		print(\"timer_started\")
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ft3qg"]
-size = Vector2(96.4637, 99.103)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5iee3"]
-size = Vector2(78.1471, 71.8403)
+size = Vector2(87.2467, 86.6369)
 
 [node name="Fruits" type="RigidBody2D" groups=["fruits"]]
-visible = false
 position = Vector2(-362, 362)
 collision_layer = 0
 collision_mask = 3
@@ -115,23 +102,20 @@ script = ExtResource("3_mvjfs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 process_mode = 2
-position = Vector2(439.002, 22)
+position = Vector2(438.5, 22)
 rotation = -0.000748687
 scale = Vector2(0.539063, 0.484375)
 shape = SubResource("RectangleShape2D_ft3qg")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(438, 22)
-rotation = 0.00204499
-shape = SubResource("RectangleShape2D_5iee3")
 
 [node name="fruit_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_vke7e")
 volume_db = 19.81
 pitch_scale = 0.01
 
+[node name="spawn_timer" type="Timer" parent="."]
+script = ExtResource("4_7mx28")
+
 [connection signal="body_entered" from="." to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="spawn_timer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="spawn_timer" to="spawn_timer" method="_on_timeout"]

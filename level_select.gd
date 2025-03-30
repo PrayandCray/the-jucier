@@ -3,6 +3,7 @@ extends Button
 
 func _pressed() -> void:
 	Global.level = int(get_name()) - 1
+	Global.customer_count = get_parent().get_parent().get_parent().customers_in_levels[Global.level]
 	Global.level_select = false
 	for child in get_parent().get_children():
 		child.hide()

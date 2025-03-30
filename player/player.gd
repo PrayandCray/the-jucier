@@ -55,6 +55,7 @@ func _physics_process(delta):
 	
 	if Global.menuing == true:
 		in_game_song.stop()
+		awakening_speck.stop()
 		if music_playing == false:
 			main_menu_theme.play()
 			music_playing = true

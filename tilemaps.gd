@@ -5,6 +5,7 @@ extends Node2D
 
 
 func _process(delta: float) -> void:
+	print(Global.customer_count)
 	if Global.gamestart == true:
 		level_change()
 		
@@ -27,7 +28,7 @@ func _process(delta: float) -> void:
 		_1.collision_enabled = true
 
 func level_change():
-	if Global.player_score >= 250 and Global.endless == false:
+	if Global.customer_count <= 0 and Global.endless == false:
 		Global.level += 1
 		for i in get_children():
 			i.hide()
@@ -39,6 +40,16 @@ func level_change():
 		Global.spawned = false
 		
 	else: 
-		var current = get_children()[Global.level]
-		current.show()
-		current.collision_enabled = true
+		if Global.endless == false and Global.tutorial == false:
+			var current = get_children()[Global.level]
+			current.show()
+			current.collision_enabled = true
+		else:
+			Global.level = 0
+			for i in get_children():
+				if i == $"1":
+					i.show()
+					i.collision_enabled = true
+				else:
+					i.hide()
+					i.collision_enabled = false
