@@ -30,6 +30,12 @@ func _process(delta: float) -> void:
 				global_position = Vector2(1819, 890)
 			if Global.level == 3:
 				global_position = Vector2(1854, 879)
+			if Global.level == 4:
+				global_position = Vector2(1819, 861)
+			if Global.level == 5:
+				global_position = Vector2(1855, 846)
+			if Global.level == 6:
+				global_position = Vector2(1875, 957)
 				
 		if Global.gameover == true:
 			hide()

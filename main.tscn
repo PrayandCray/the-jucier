@@ -26,7 +26,7 @@ offset_right = 12.0
 offset_bottom = 37.0
 
 [node name="Blender Animation" parent="." instance=ExtResource("8_wcmgl")]
-position = Vector2(1855, 879)
+position = Vector2(1855, 847)
 scale = Vector2(1.36016, 1.36016)
 
 [node name="blender area 2d" parent="Blender Animation" index="0"]

@@ -31,8 +31,6 @@ var customers_spawned = false
 var setup = false
 var tutorial_progress = 0
 
-var customers_in_levels = [7, 8, 9, 6, 7, 12]
-
 func _physics_process(delta: float) -> void:
 
 	if Global.menuing == true:
@@ -67,11 +65,7 @@ func _physics_process(delta: float) -> void:
 			countdown_time = floor(int(time_limit_timer.time_left))
 			score.text = "Score: " + str(Global.player_score)
 			time_limit.text = str(countdown_time)
-			if Global.level != level:
-				time_limit_timer.stop()
-				level += 1
-				time_limit_timer.start()
-				
+
 		elif Global.endless == true:
 			time_limit.text = "endless"
 			score.text = "Score: " + str(Global.player_score)
@@ -97,8 +91,8 @@ func _physics_process(delta: float) -> void:
 		if Global.sold_smoothies > 0 and Global.endless == false:
 			for customers in Global.sold_smoothies:
 				customer_box.get_children().back().queue_free()
-				Global.sold_smoothies -= 1
-				Global.customer_count -= 1
+			Global.sold_smoothies -= 1
+			Global.customers_served += 1
 
 
 	if Global.tutorial == true:
@@ -177,6 +171,7 @@ func _on_endless_pressed() -> void:
 		
 func _on_tutorial_pressed() -> void:
 	Global.tutorial = true
+	Global.level = 1
 	start_button.hide()
 	endless.hide()
 	tutorial.hide()
@@ -185,12 +180,11 @@ func _on_tutorial_pressed() -> void:
 	
 func gui_setup():
 	if customers_spawned == false and Global.endless == false:
-		for i in range(customers_in_levels[Global.level]):
+		for i in range(Global.customers_in_levels[Global.level]):
 			var new_customer = customer_icon.duplicate()
 			customer_box.add_child(new_customer)
 			new_customer.show()
 		customers_spawned = true
-	print(Global.customer_count)
 	if Global.endless == true and customers_spawned == true:
 		for i in customer_box.get_children():
 			i.hide()
@@ -221,6 +215,7 @@ func menu_setup():
 				customers_spawned = false
 			else:
 				i.queue_free()
+		Global.customers_served = 0
 		game_over.hide()
 		Global.gameover = false
 		combos.hide()

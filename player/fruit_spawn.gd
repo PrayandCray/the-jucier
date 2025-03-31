@@ -2,6 +2,7 @@ extends Node2D
 
 var fruits_scene = preload("res://fruits/fruits.tscn")
 var fruit_spawn_timer : Timer
+var timer_started = false
 
 func _ready() -> void:
 	_instantiate()
@@ -9,13 +10,20 @@ func _ready() -> void:
 	add_child(fruit_spawn_timer)
 	fruit_spawn_timer.timeout.connect(_on_fruit_timeout)
 	fruit_spawn_timer.start(Global.fruit_x2_time)
+	timer_started = true
 
 func _process(delta: float) -> void:
+		
 	if Global.gameover == true:
 		fruit_spawn_timer.stop()
+		timer_started = false
 		if get_tree().get_nodes_in_group("fruits").size() > 0: #check for how many fruits are on screen
 			get_tree().get_nodes_in_group("fruits").front().queue_free()
-		
+			
+	elif Global.gamestart == true and timer_started == false:
+		fruit_spawn_timer.start(Global.fruit_x2_time)
+		timer_started = true
+		print("spawned")
 
 func _instantiate():
 	var fruit_instance = fruits_scene.instantiate()
@@ -28,4 +36,4 @@ func _instantiate():
 func _on_fruit_timeout():
 	print("fruit_spawned")
 	_instantiate()
-	fruit_spawn_timer.start(Global.fruit_x2_time)
+	timer_started = false

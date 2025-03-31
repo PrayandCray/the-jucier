@@ -62,8 +62,11 @@ func _process(delta: float) -> void:
 			Global.powerup_fruit_delete = false
 			
 	if Global.gameover == true:
-		if get_tree().get_nodes_in_group(\"fruits\").size() >= 1:
-				Global.fruit_delete = true
+		for fruits in get_tree().get_nodes_in_group(\"fruits\"):
+			fruits.hide()
+	else:
+		for fruits in get_tree().get_nodes_in_group(\"fruits\"):
+			fruits.show()
 
 func speed_powerup():
 	Global.speed_multiplier = 1.5

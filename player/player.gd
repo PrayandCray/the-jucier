@@ -177,6 +177,7 @@ func _on_combo_timer_timeout() -> void:
 func _on_smoothie_stand_area_2d_body_entered(body: Node2D) -> void:
 	for smoothies in range(Global.smoothies):
 		Global.sold_smoothies += 1
+		print(Global.smoothies)
 	print("sold ", str(Global.smoothies), " smoothies")
 	Global.player_score += (Global.smoothies * 40)
 	Global.smoothies = 0

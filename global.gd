@@ -16,6 +16,7 @@ var fruit_sfx_pitch_scale = 0
 var customer_count = 15
 var sold_smoothies = 0
 var level = 0
+var customers_in_levels = [7, 6, 7, 6, 7, 9, 5]
 var gamestart = false
 var menuing = true
 var level_select = false

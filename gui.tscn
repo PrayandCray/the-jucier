@@ -233,6 +233,11 @@ layout_mode = 2
 text = "   6   "
 script = ExtResource("11_7u6ry")
 
+[node name="7" type="Button" parent="CanvasLayer/Levels"]
+layout_mode = 2
+text = "   7   "
+script = ExtResource("11_7u6ry")
+
 [node name="Game Over" type="TextureRect" parent="CanvasLayer"]
 texture_filter = 1
 anchors_preset = 8
